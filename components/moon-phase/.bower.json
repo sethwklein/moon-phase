@@ -1,0 +1,40 @@
+{
+  "name": "moon-phase",
+  "authors": [
+    "Seth W. Klein <sk@sethwklein.net>"
+  ],
+  "description": "A moon phase calendar for an undisclosed reason.",
+  "keywords": [
+    "web-component",
+    "polymer",
+    "moon",
+    "phase",
+    "calendar"
+  ],
+  "main": "moon-phase.html",
+  "license": "http://polymer.github.io/LICENSE.txt",
+  "homepage": "https://github.com/sethwklein/moon-phase/",
+  "ignore": [
+    "/.*",
+    "/test/"
+  ],
+  "dependencies": {
+    "iron-ajax": "polymerelements/iron-ajax#~1.0.4",
+    "paper-date-picker": "bendavis78/paper-date-picker#~1.0.3",
+    "polymer": "Polymer/polymer#^1.1.0"
+  },
+  "devDependencies": {
+    "iron-component-page": "PolymerElements/iron-component-page#^1.0.0",
+    "web-component-tester": "*"
+  },
+  "_release": "495ba1781d",
+  "_resolution": {
+    "type": "branch",
+    "branch": "master",
+    "commit": "495ba1781dff71ca652e2c2652db5922ec97bad2"
+  },
+  "_source": "git://github.com/sethwklein/moon-phase.git",
+  "_target": "master",
+  "_originalSource": "sethwklein/moon-phase",
+  "_direct": true
+}

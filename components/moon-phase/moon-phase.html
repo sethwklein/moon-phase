@@ -1,0 +1,169 @@
+<!--
+@license
+Copyright (c) 2015 The Polymer Project Authors. All rights reserved.
+This code may only be used under the BSD style license found at http://polymer.github.io/LICENSE.txt
+The complete set of authors may be found at http://polymer.github.io/AUTHORS.txt
+The complete set of contributors may be found at http://polymer.github.io/CONTRIBUTORS.txt
+Code distributed by Google as part of the polymer project is also
+subject to an additional IP rights grant found at http://polymer.github.io/PATENTS.txt
+-->
+<link rel="import" href="../polymer/polymer.html">
+<link rel="import" href="../paper-date-picker/paper-date-picker.html">
+<link rel="import" href="../iron-ajax/iron-ajax.html">
+
+<!--
+A moon phase calendar for demonstration purposes. Do not use.
+
+Example:
+
+    <moon-phase>
+      <img src="" alt="Waiting..." />
+    </moon-phase>
+
+
+@group Seed Elements
+@element moon-phase
+@demo demo/index.html
+@hero hero.svg
+-->
+<dom-module id="moon-phase">
+
+  <template>
+    <style>
+      :host {
+        display: block;
+        box-sizing: border-box;
+      }
+    </style>
+
+    <paper-date-picker date="{{date}}"></paper-date-picker>
+    <iron-ajax id="farmsense"
+      handleAs="json"
+      url="http://farmsense-prod.apigee.net/v1/moonphases/"
+      on-response="_handleResponse"></iron-ajax>
+    <content></content>
+  </template>
+
+</dom-module>
+
+<script>
+
+  Polymer({
+
+    is: 'moon-phase',
+
+    properties: {
+
+      /**
+       * The selected date (YYYY-MM-DD)
+       * @attribute date
+       * @type Date
+       * @default today's date
+       */
+      date: {
+        type: Date,
+        notify: true,
+        observer: '_dateChanged',
+      },
+
+      /**
+       * The moon's illumination, 0-100%.
+       */
+      illumination: {
+        type: Number,
+        notify: true,
+      },
+    },
+
+    /**
+     * Stores the original children (the waiting indicator) while the moon
+     * phase image is inserted.
+     */
+    _waiting: null,
+
+    // The whole thing with swapping the waiting indicator in and out is
+    // probably not a great design (it's hard to know for sure without use
+    // cases), but it's probably chosen to require DOM manipulations in order
+    // to verify knowledge of those techniques. — sk
+
+    // The waiting indicator / moon image handling is all spread out, so....
+    // In ready(), save the waiting indicator.
+    // In _dateChanged, replace contents with the saved waiting indicator.
+    // In _handleResponse, replace the waiting indicator with the moon image.
+
+    /**
+     * Removes contents without destroying it like innerHtml does.
+     */
+    _empty: function(node) {
+      var children = node.childNodes;
+      for (var i = children.length - 1; i >= 0; i--) {
+        node.removeChild(children[i]);
+      }
+    },
+
+    /**
+     * Restores the waiting indicator.
+     */
+    _restoreWaiting: function() {
+      var parent = Polymer.dom(this);
+      this._empty(parent);
+      for (var i = 0; i < this._waiting.length; i++) {
+        parent.appendChild(this._waiting[i]);
+      }
+    },
+
+    /**
+     * Handles the date property changing.
+     *
+     * @param {Date} the date for which to show the moon phase.
+     */
+    _dateChanged: function(date) {
+      if (!date) {
+        return;
+      }
+
+      this._restoreWaiting();
+
+      var unix = date.getTime();
+      var farmsense = this.$.farmsense;
+
+      farmsense.params = {
+        d: unix,
+      };
+      farmsense.generateRequest();
+    },
+
+    /**
+     * Handles responses from the Farmsense API.
+     *
+     * @param The event describing the response.
+     */
+    _handleResponse: function(event) {
+      var descriptions = this.$.farmsense.lastResponse;
+      var description = descriptions[0];
+      if (!description) {
+        return; // yay, silent errors! :(
+      }
+      this.illumination = Math.round(description.Illumination * 100);
+      var index = description.Index;
+
+      var image = document.createElement("img");
+      image.setAttribute("src", "http://www.farmsense.net/demos/images/moonphases/" + index + ".png");
+
+      var parent = Polymer.dom(this);
+      this._empty(parent);
+      parent.appendChild(image);
+    },
+
+    // Element Lifecycle
+
+    ready: function() {
+      var children = Polymer.dom(this).childNodes;
+      // copy children out of live updating thing
+      this._waiting = [];
+      for (var i = 0; i < children.length; i++) {
+        this._waiting.push(children[i]);
+      }
+    },
+  });
+</script>

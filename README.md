@@ -1,6 +1,13 @@
-# seed-element
+# moon-phase
 
-An element providing a starting point for your own reusable Polymer elements.
+An element providing a moon phase calendar.
+
+
+## Warning
+
+Do not use this. I published it for demonstration purposes. I do not support
+its use and portions don't meet my quality standards for things I release.
+— @sethwklein
 
 
 ## Dependencies
@@ -15,11 +22,11 @@ Then, go ahead and download the element's dependencies:
     bower install
 
 
-## Playing With Your Element
+## Playing With the Calendar
 
-If you wish to work on your element in isolation, we recommend that you use
-[Polyserve](https://github.com/PolymerLabs/polyserve) to keep your element's
-bower dependencies in line. You can install it via:
+If you wish to work on the calendar in isolation, we recommend that you use
+[Polyserve](https://github.com/PolymerLabs/polyserve) to keep the bower
+dependencies in line. You can install it via:
 
     npm install -g polyserve
 
@@ -27,14 +34,14 @@ And you can run it via:
 
     polyserve
 
-Once running, you can preview your element at
-`http://localhost:8080/components/seed-element/`, where `seed-element` is the name of the directory containing it.
+Once running, you can preview the demo page at
+`http://localhost:8080/components/moon-phase/`.
 
 
-## Testing Your Element
+## Testing the Calendar
 
-Simply navigate to the `/test` directory of your element to run its tests. If
-you are using Polyserve: `http://localhost:8080/components/seed-element/test/`
+Simply navigate to the `/test` directory to run the tests. If you are using
+Polyserve: `http://localhost:8080/components/seed-element/test/`
 
 ### web-component-tester
 
@@ -58,4 +65,4 @@ Then, you can run your tests on _all_ of your local browsers via:
 
 ## Yeoman support
 
-If you'd like to use Yeoman to scaffold your element that's possible. The official [`generator-polymer`](https://github.com/yeoman/generator-polymer) generator has a [`seed`](https://github.com/yeoman/generator-polymer#seed) subgenerator.
+If you'd like to use Yeoman to scaffold the calendar that's possible. The official [`generator-polymer`](https://github.com/yeoman/generator-polymer) generator has a [`seed`](https://github.com/yeoman/generator-polymer#seed) subgenerator.

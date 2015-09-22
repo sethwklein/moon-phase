@@ -1,23 +1,27 @@
 {
-  "name": "seed-element",
-  "version": "1.0.3",
+  "name": "moon-phase",
+  "version": "1.0.4",
   "authors": [
-    "Anonymous <anonymous@example.com>"
+    "Seth W. Klein <sk@sethwklein.net>"
   ],
-  "description": "An element providing a solution to no problem in particular.",
+  "description": "A moon phase calendar for an undisclosed reason.",
   "keywords": [
     "web-component",
     "polymer",
-    "seed"
+    "moon",
+    "phase",
+    "calendar"
   ],
-  "main": "seed-element.html",
+  "main": "moon-phase.html",
   "license": "http://polymer.github.io/LICENSE.txt",
-  "homepage": "https://github.com/<USERNAME>/seed-element/",
+  "homepage": "https://github.com/sethwklein/moon-phase/",
   "ignore": [
     "/.*",
     "/test/"
   ],
   "dependencies": {
+    "iron-ajax": "polymerelements/iron-ajax#~1.0.4",
+    "paper-date-picker": "bendavis78/paper-date-picker#~1.0.3",
     "polymer": "Polymer/polymer#^1.1.0"
   },
   "devDependencies": {
